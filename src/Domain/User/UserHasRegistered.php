@@ -4,7 +4,7 @@ namespace Verhuur\Domain\User;
 
 use Prooph\EventSourcing\AggregateChanged;
 
-class UserHasRegistered extends AggregateChanged
+final class UserHasRegistered extends AggregateChanged
 {
     public function userId(): UserId
     {
