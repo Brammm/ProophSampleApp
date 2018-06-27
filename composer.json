@@ -4,8 +4,13 @@
             "Verhuur\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Verhuur\\Tests\\": "tests/"
+        }
+    },
     "require": {
-        "php": ">=7.1",
+        "php": ">=7.2",
         "prooph/common": "^4.2",
         "prooph/event-sourcing": "^5.5",
         "ramsey/uuid": "^3.7"
