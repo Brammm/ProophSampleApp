@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 namespace Todo\Domain\Todo;
 
-use Prooph\EventSourcing\AggregateChanged;
 use Prooph\EventSourcing\AggregateRoot;
+use Todo\Domain\User\User;
+use Todo\Domain\User\UserId;
+use Todo\Infrastructure\AppliesEvents;
 
 final class Todo extends AggregateRoot
 {
+    use AppliesEvents;
+
     /**
      * @var TodoId
      */
@@ -18,6 +22,11 @@ final class Todo extends AggregateRoot
      * @var string
      */
     private $description;
+
+    /**
+     * @var UserId|null
+     */
+    private $assignedTo;
 
     public static function plan(TodoId $todoId, string $description): self
     {
@@ -29,26 +38,26 @@ final class Todo extends AggregateRoot
         return $todo;
     }
 
-    protected function aggregateId(): string
+    public function assignTo(User $user): void
     {
-        return (string) $this->todoId;
+        $this->recordThat(TodoWasAssigned::occur((string) $this->todoId, [
+            'userId' => (string) $user->userId(),
+        ]));
     }
 
-    /**
-     * Apply given event
-     */
-    protected function apply(AggregateChanged $event): void
-    {
-        switch (true) {
-            case $event instanceof TodoWasPlanned:
-                $this->whenTodoWasPlanned($event);
-                break;
-        }
-    }
-
-    private function whenTodoWasPlanned(TodoWasPlanned $event)
+    protected function whenTodoWasPlanned(TodoWasPlanned $event): void
     {
         $this->todoId = $event->todoId();
         $this->description = $event->description();
+    }
+
+    protected function whenTodoWasAssigned(TodoWasAssigned $event): void
+    {
+        $this->assignedTo = $event->userId();
+    }
+
+    protected function aggregateId(): string
+    {
+        return (string) $this->todoId;
     }
 }

@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Todo\Domain\User;
 
-use Prooph\EventSourcing\AggregateChanged;
 use Prooph\EventSourcing\AggregateRoot;
+use Todo\Infrastructure\AppliesEvents;
 
 final class User extends AggregateRoot
 {
+    use AppliesEvents;
+
     /**
      * @var UserId
      */
@@ -24,6 +26,11 @@ final class User extends AggregateRoot
      */
     private $password;
 
+    public function userId(): UserId
+    {
+        return $this->userId;
+    }
+
     public static function registerUser(UserId $userId, Email $email, Password $password): self
     {
         $user = new self();
@@ -35,27 +42,15 @@ final class User extends AggregateRoot
         return $user;
     }
 
-    protected function aggregateId(): string
-    {
-        return (string) $this->userId;
-    }
-
-    /**
-     * Apply given event
-     */
-    protected function apply(AggregateChanged $event): void
-    {
-        switch (true) {
-            case $event instanceof UserHasRegistered:
-                $this->whenUserHasRegistered($event);
-                break;
-        }
-    }
-
-    private function whenUserHasRegistered(UserHasRegistered $event): void
+    protected function whenUserHasRegistered(UserHasRegistered $event): void
     {
         $this->userId = $event->userId();
         $this->email = $event->email();
         $this->password = $event->password();
+    }
+
+    protected function aggregateId(): string
+    {
+        return (string) $this->userId;
     }
 }
