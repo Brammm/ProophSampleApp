@@ -21,7 +21,7 @@ class TodoTest extends TestCase
 
     public function setUp()
     {
-        $this->todoId = TodoId::create();
+        $this->todoId = TodoId::generate();
         $this->description = 'Todo description';
     }
 

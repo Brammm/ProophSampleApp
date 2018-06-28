@@ -28,7 +28,7 @@ class UserTest extends TestCase
 
     public function setUp(): void
     {
-        $this->userId = UserId::create();
+        $this->userId = UserId::generate();
         $this->email = new Email('john@example.com');
         $this->password = new Password('password');
     }

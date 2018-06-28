@@ -16,7 +16,7 @@ class Uuid
         $this->uuid = $uuid;
     }
 
-    public static function create(): self
+    public static function generate(): self
     {
         return new static(UuidLib::uuid4());
     }
