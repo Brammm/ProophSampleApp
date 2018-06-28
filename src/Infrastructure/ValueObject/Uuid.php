@@ -6,16 +6,11 @@ namespace Todo\Infrastructure\ValueObject;
 
 use Ramsey\Uuid\Uuid as UuidLib;
 
-class Uuid
+class Uuid extends StringObject
 {
-    /**
-     * @var string
-     */
-    private $uuid;
-
     private function __construct(string $uuid)
     {
-        $this->uuid = $uuid;
+        parent::__construct($uuid);
     }
 
     /**
@@ -38,15 +33,5 @@ class Uuid
         }
 
         return new static($uuid);
-    }
-
-    public function equals(Uuid $other): bool
-    {
-        return $this->uuid === $other->uuid && static::class === \get_class($other);
-    }
-
-    public function __toString(): string
-    {
-        return $this->uuid;
     }
 }
