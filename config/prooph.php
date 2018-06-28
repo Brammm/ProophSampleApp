@@ -10,10 +10,16 @@ namespace {
     use Prooph\EventStore\EventStore;
     use Prooph\EventStore\Pdo\MySqlEventStore;
     use Prooph\EventStore\Pdo\PersistenceStrategy\MySqlSingleStreamStrategy;
+    use Prooph\EventStore\StreamName;
     use Prooph\ServiceBus\CommandBus;
     use Prooph\ServiceBus\Plugin\Router\CommandRouter;
     use Prooph\ServiceBus\Plugin\ServiceLocatorPlugin;
     use Psr\Container\ContainerInterface;
+    use Todo\Domain\Todo\EventStoreTodoRepository;
+    use Todo\Domain\Todo\PlanTodo;
+    use Todo\Domain\Todo\PlanTodoCommandHandler;
+    use Todo\Domain\Todo\Todo;
+    use Todo\Domain\Todo\TodoRepository;
     use Todo\Domain\User\EventStoreUserRepository;
     use Todo\Domain\User\RegisterUser;
     use Todo\Domain\User\RegisterUserCommandHandler;
@@ -24,6 +30,7 @@ namespace {
         CommandBus::class => function (ContainerInterface $container) {
             $router = new CommandRouter([
                 RegisterUser::class => RegisterUserCommandHandler::class,
+                PlanTodo::class => PlanTodoCommandHandler::class,
             ]);
 
             $commandBus = new CommandBus();
@@ -53,7 +60,19 @@ namespace {
             return new EventStoreUserRepository(
                 $eventStore,
                 AggregateType::fromAggregateRootClass(User::class),
-                new AggregateTranslator()
+                new AggregateTranslator(),
+                null,
+                new StreamName('user-stream')
+            );
+        },
+
+        TodoRepository::class => function (EventStore $eventStore) {
+            return new EventStoreTodoRepository(
+                $eventStore,
+                AggregateType::fromAggregateRootClass(Todo::class),
+                new AggregateTranslator(),
+                null,
+                new StreamName('todo-stream')
             );
         },
     ];

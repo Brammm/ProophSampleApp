@@ -17,6 +17,7 @@ namespace {
 
     $eventStore = $container->get(EventStore::class);
 
-    $eventStore->create(new Stream(new StreamName('event_stream'), new ArrayIterator()));
+    $eventStore->create(new Stream(new StreamName('todo-stream'), new ArrayIterator()));
+    $eventStore->create(new Stream(new StreamName('user-stream'), new ArrayIterator()));
     echo 'done.';
 }

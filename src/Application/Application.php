@@ -6,6 +6,7 @@ namespace Todo\Application;
 
 use DI\Bridge\Slim\App;
 use DI\ContainerBuilder;
+use Todo\Application\Http\Todo\PostTodos;
 use Todo\Application\Http\User\PostUsers;
 
 final class Application extends App
@@ -25,5 +26,6 @@ final class Application extends App
     private function loadRoutes()
     {
         $this->post('/users', PostUsers::class);
+        $this->post('/todos', PostTodos::class);
     }
 }
