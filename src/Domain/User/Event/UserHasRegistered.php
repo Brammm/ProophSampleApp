@@ -2,9 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Todo\Domain\User;
+namespace Todo\Domain\User\Event;
 
 use Prooph\EventSourcing\AggregateChanged;
+use Todo\Domain\User\Email;
+use Todo\Domain\User\Password;
+use Todo\Domain\User\UserId;
 
 final class UserHasRegistered extends AggregateChanged
 {

@@ -2,7 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Todo\Domain\User;
+namespace Todo\Domain\User\Command;
+
+use Todo\Domain\User\User;
+use Todo\Domain\User\UserRepository;
 
 final class RegisterUserCommandHandler
 {

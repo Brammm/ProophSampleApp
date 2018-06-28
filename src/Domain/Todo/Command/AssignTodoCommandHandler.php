@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Todo\Domain\Todo;
+namespace Todo\Domain\Todo\Command;
 
+use Todo\Domain\Todo\TodoRepository;
 use Todo\Domain\User\UserRepository;
 
 final class AssignTodoCommandHandler

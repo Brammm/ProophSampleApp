@@ -7,7 +7,7 @@ namespace Todo\Application\Http\User;
 use Prooph\ServiceBus\CommandBus;
 use Slim\Http\Request;
 use Slim\Http\Response;
-use Todo\Domain\User\RegisterUser;
+use Todo\Domain\User\Command\RegisterUser;
 use Todo\Domain\User\UserId;
 
 final class PostUsers

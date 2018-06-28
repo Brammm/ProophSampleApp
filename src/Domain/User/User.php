@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Todo\Domain\User;
 
 use Prooph\EventSourcing\AggregateRoot;
+use Todo\Domain\User\Event\UserHasRegistered;
 use Todo\Infrastructure\Prooph\Messaging\AppliesEvents;
 
 final class User extends AggregateRoot

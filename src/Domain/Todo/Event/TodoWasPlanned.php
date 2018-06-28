@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Todo\Domain\Todo;
+namespace Todo\Domain\Todo\Event;
 
 use Prooph\EventSourcing\AggregateChanged;
+use Todo\Domain\Todo\TodoId;
 
 class TodoWasPlanned extends AggregateChanged
 {

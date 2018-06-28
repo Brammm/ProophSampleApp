@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Todo\Tests\Unit\Domain\User;
 
 use Todo\Domain\User\Email;
+use Todo\Domain\User\Event\UserHasRegistered;
 use Todo\Domain\User\Password;
 use Todo\Domain\User\User;
-use Todo\Domain\User\UserHasRegistered;
 use Todo\Domain\User\UserId;
 use Todo\Tests\TestCase;
 

@@ -7,7 +7,7 @@ namespace Todo\Application\Http\Todo;
 use Prooph\ServiceBus\CommandBus;
 use Slim\Http\Request;
 use Slim\Http\Response;
-use Todo\Domain\Todo\AssignTodo;
+use Todo\Domain\Todo\Command\AssignTodo;
 
 final class PutTodoAssign
 {
