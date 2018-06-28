@@ -8,6 +8,7 @@ use Prooph\ServiceBus\CommandBus;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Todo\Domain\User\RegisterUser;
+use Todo\Domain\User\UserId;
 
 final class PostUsers
 {
@@ -23,7 +24,10 @@ final class PostUsers
 
     public function __invoke(Request $request, Response $response): Response
     {
-        $this->commandBus->dispatch(new RegisterUser($request->getParsedBody()));
+        $payload = $request->getParsedBody();
+        $payload['userId'] = (string) UserId::generate();
+
+        $this->commandBus->dispatch(new RegisterUser($payload));
 
         return $response->withStatus(202);
     }
