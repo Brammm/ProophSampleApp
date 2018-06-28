@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Todo\Infrastructure;
+namespace Todo\Infrastructure\ValueObject;
 
 use Ramsey\Uuid\Uuid as UuidLib;
 

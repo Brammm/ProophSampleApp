@@ -7,7 +7,7 @@ namespace Todo\Domain\Todo;
 use Prooph\EventSourcing\AggregateRoot;
 use Todo\Domain\User\User;
 use Todo\Domain\User\UserId;
-use Todo\Infrastructure\AppliesEvents;
+use Todo\Infrastructure\Prooph\Messaging\AppliesEvents;
 
 final class Todo extends AggregateRoot
 {

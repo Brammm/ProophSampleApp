@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Todo\Infrastructure;
+namespace Todo\Infrastructure\Prooph\Messaging;
 
 use Prooph\EventSourcing\AggregateChanged;
 use RuntimeException;
