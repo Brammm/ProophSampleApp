@@ -9,7 +9,7 @@ namespace {
         require('prooph.php'),
 
         [
-
+            'settings.displayErrorDetails' => true,
         ]
     );
 }

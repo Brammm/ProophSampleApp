@@ -1,0 +1,27 @@
+version: '3.6'
+
+services:
+    todo-php:
+        build:
+            context: ./
+            dockerfile: ./.docker/php/Dockerfile
+        volumes:
+            - ./:/code/
+
+    todo-nginx:
+        build:
+            context: ./
+            dockerfile: ./.docker/nginx/Dockerfile
+        ports:
+            - 8000:80
+        volumes:
+            - ./public:/code/public
+
+    todo-mysql:
+        image: mysql:5.7
+        ports:
+            - 3306:3306
+        environment:
+            - MYSQL_DATABASE=todo
+            - MYSQL_ROOT_PASSWORD=root
+
