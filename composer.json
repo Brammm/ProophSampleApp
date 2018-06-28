@@ -1,12 +1,12 @@
 {
     "autoload": {
         "psr-4": {
-            "Verhuur\\": "src/"
+            "Todo\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Verhuur\\Tests\\": "tests/"
+            "Todo\\Tests\\": "tests/"
         }
     },
     "require": {

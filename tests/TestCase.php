@@ -1,6 +1,6 @@
 <?php
 
-namespace Verhuur\Tests;
+namespace Todo\Tests;
 
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 use Prooph\EventSourcing\Aggregate\AggregateType;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Verhuur\Domain\User;
+namespace Todo\Domain\User;
 
 final class Password
 {

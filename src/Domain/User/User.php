@@ -1,6 +1,6 @@
 <?php
 
-namespace Verhuur\Domain\User;
+namespace Todo\Domain\User;
 
 use Prooph\EventSourcing\AggregateChanged;
 use Prooph\EventSourcing\AggregateRoot;

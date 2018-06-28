@@ -1,13 +1,13 @@
 <?php
 
-namespace Verhuur\Tests\Unit\Domain\User;
+namespace Todo\Tests\Unit\Domain\User;
 
-use Verhuur\Domain\User\Email;
-use Verhuur\Domain\User\Password;
-use Verhuur\Domain\User\User;
-use Verhuur\Domain\User\UserHasRegistered;
-use Verhuur\Domain\User\UserId;
-use Verhuur\Tests\TestCase;
+use Todo\Domain\User\Email;
+use Todo\Domain\User\Password;
+use Todo\Domain\User\User;
+use Todo\Domain\User\UserHasRegistered;
+use Todo\Domain\User\UserId;
+use Todo\Tests\TestCase;
 
 class UserTest extends TestCase
 {
