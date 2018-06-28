@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Todo\Tests\Unit\Domain\Todo;
 
-use Prooph\EventSourcing\AggregateChanged;
 use Todo\Domain\Todo\Todo;
 use Todo\Domain\Todo\TodoId;
 use Todo\Domain\Todo\TodoWasAssigned;
@@ -56,8 +55,10 @@ class TodoTest extends TestCase
 
     public function testItCanAssignAUser(): void
     {
-        $todo = $this->reconstituteTodo($this->todoWasPlanned());
-        $user = $this->reconstituteUser($this->userHasRegistered());
+        /** @var Todo $todo */
+        $todo = $this->reconstituteAggregateFromHistory(Todo::class, [$this->todoWasPlanned()]);
+        /** @var User $user */
+        $user = $this->reconstituteAggregateFromHistory(User::class, [$this->userHasRegistered()]);
 
         $todo->assignTo($user);
 
@@ -69,18 +70,6 @@ class TodoTest extends TestCase
         $this->assertTrue(assert($event instanceof TodoWasAssigned));
         $this->assertSame(TodoWasAssigned::class, $event->messageName());
         $this->assertEquals($this->userId, $event->userId());
-    }
-
-    private function reconstituteTodo(AggregateChanged ...$events): Todo
-    {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return $this->reconstituteAggregateFromHistory(Todo::class, $events);
-    }
-
-    private function reconstituteUser(AggregateChanged ...$events): User
-    {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return $this->reconstituteAggregateFromHistory(User::class, $events);
     }
 
     private function todoWasPlanned(): TodoWasPlanned

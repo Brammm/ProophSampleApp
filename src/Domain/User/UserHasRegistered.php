@@ -10,7 +10,6 @@ final class UserHasRegistered extends AggregateChanged
 {
     public function userId(): UserId
     {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return UserId::fromString($this->aggregateId());
     }
 

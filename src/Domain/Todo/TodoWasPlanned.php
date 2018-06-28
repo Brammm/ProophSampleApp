@@ -10,7 +10,6 @@ class TodoWasPlanned extends AggregateChanged
 {
     public function todoId(): TodoId
     {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return TodoId::fromString($this->aggregateId());
     }
 
