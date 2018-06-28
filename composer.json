@@ -11,7 +11,10 @@
     },
     "require": {
         "php": ">=7.2",
+        "php-di/php-di": "^6.0",
+        "php-di/slim-bridge": "^2.0",
         "prooph/event-sourcing": "^5.5",
+        "prooph/event-store-bus-bridge": "^3.2",
         "ramsey/uuid": "^3.7"
     },
     "require-dev": {
