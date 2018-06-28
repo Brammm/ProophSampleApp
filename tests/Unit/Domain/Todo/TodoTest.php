@@ -49,8 +49,8 @@ class TodoTest extends TestCase
 
         $this->assertTrue(assert($event instanceof TodoWasPlanned));
         $this->assertSame(TodoWasPlanned::class, $event->messageName());
-        $this->assertEquals($this->todoId, $event->todoId());
-        $this->assertEquals($this->description, $event->description());
+        $this->assertTrue($this->todoId->equals($event->todoId()));
+        $this->assertSame($this->description, $event->description());
     }
 
     public function testItCanAssignAUser(): void
@@ -69,7 +69,7 @@ class TodoTest extends TestCase
 
         $this->assertTrue(assert($event instanceof TodoWasAssigned));
         $this->assertSame(TodoWasAssigned::class, $event->messageName());
-        $this->assertEquals($this->userId, $event->userId());
+        $this->assertTrue($this->userId->equals($event->userId()));
     }
 
     private function todoWasPlanned(): TodoWasPlanned

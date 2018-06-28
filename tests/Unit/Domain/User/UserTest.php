@@ -47,8 +47,8 @@ class UserTest extends TestCase
 
         $this->assertTrue(assert($event instanceof UserHasRegistered));
         $this->assertSame(UserHasRegistered::class, $event->messageName());
-        $this->assertEquals($this->userId, $event->userId());
-        $this->assertEquals($this->email, $event->email());
-        $this->assertEquals($this->password, $event->password());
+        $this->assertTrue($this->userId->equals($event->userId()));
+        $this->assertTrue($this->email->equals($event->email()));
+        $this->assertTrue($this->password->equals($event->password()));
     }
 }

@@ -20,4 +20,9 @@ final class Password
     {
         return $this->password;
     }
+
+    public function equals(Password $other): bool
+    {
+        return $this->password === $other->password;
+    }
 }
