@@ -11,6 +11,7 @@
     },
     "require": {
         "php": ">=7.2",
+        "doctrine/dbal": "^2.7",
         "php-di/php-di": "^6.0",
         "php-di/slim-bridge": "^2.0",
         "prooph/event-sourcing": "^5.5",

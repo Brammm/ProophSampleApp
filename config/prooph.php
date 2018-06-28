@@ -10,11 +10,15 @@ namespace {
     use Prooph\EventStore\EventStore;
     use Prooph\EventStore\Pdo\MySqlEventStore;
     use Prooph\EventStore\Pdo\PersistenceStrategy\MySqlSingleStreamStrategy;
+    use Prooph\EventStore\Pdo\Projection\MySqlProjectionManager;
+    use Prooph\EventStore\Projection\ProjectionManager;
     use Prooph\EventStore\StreamName;
     use Prooph\ServiceBus\CommandBus;
     use Prooph\ServiceBus\Plugin\Router\CommandRouter;
     use Prooph\ServiceBus\Plugin\ServiceLocatorPlugin;
     use Psr\Container\ContainerInterface;
+    use Todo\Domain\Todo\Command\AssignTodo;
+    use Todo\Domain\Todo\Command\AssignTodoCommandHandler;
     use Todo\Domain\Todo\Command\PlanTodo;
     use Todo\Domain\Todo\Command\PlanTodoCommandHandler;
     use Todo\Domain\Todo\EventStoreTodoRepository;
@@ -31,7 +35,7 @@ namespace {
             $router = new CommandRouter([
                 RegisterUser::class => RegisterUserCommandHandler::class,
                 PlanTodo::class => PlanTodoCommandHandler::class,
-                PlanTodo::class => PlanTodoCommandHandler::class,
+                AssignTodo::class => AssignTodoCommandHandler::class,
             ]);
 
             $commandBus = new CommandBus();
@@ -39,14 +43,6 @@ namespace {
             $router->attachToMessageBus($commandBus);
 
             return $commandBus;
-        },
-
-        PDO::class => function () {
-            return new PDO(
-                sprintf('mysql:host=%s;port=%s;dbname=%s', getenv('DB_HOST'), getenv('DB_PORT'), getenv('DB_NAME')),
-                getenv('DB_USERNAME'),
-                getenv('DB_PASSWORD')
-            );
         },
 
         EventStore::class => function (PDO $pdo) {
@@ -74,6 +70,13 @@ namespace {
                 new AggregateTranslator(),
                 null,
                 new StreamName('todo-stream')
+            );
+        },
+
+        ProjectionManager::class => function(EventStore $eventStore, PDO $pdo) {
+            return new MySqlProjectionManager(
+                $eventStore,
+                $pdo
             );
         },
     ];
