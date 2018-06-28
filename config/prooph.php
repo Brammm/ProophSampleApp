@@ -31,6 +31,7 @@ namespace {
             $router = new CommandRouter([
                 RegisterUser::class => RegisterUserCommandHandler::class,
                 PlanTodo::class => PlanTodoCommandHandler::class,
+                PlanTodo::class => PlanTodoCommandHandler::class,
             ]);
 
             $commandBus = new CommandBus();

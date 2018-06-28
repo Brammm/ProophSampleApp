@@ -7,6 +7,7 @@ namespace Todo\Application;
 use DI\Bridge\Slim\App;
 use DI\ContainerBuilder;
 use Todo\Application\Http\Todo\PostTodos;
+use Todo\Application\Http\Todo\PutTodoAssign;
 use Todo\Application\Http\User\PostUsers;
 
 final class Application extends App
@@ -27,5 +28,6 @@ final class Application extends App
     {
         $this->post('/users', PostUsers::class);
         $this->post('/todos', PostTodos::class);
+        $this->put('/todos', PutTodoAssign::class);
     }
 }
