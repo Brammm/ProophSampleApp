@@ -22,7 +22,7 @@ final class User extends AggregateRoot
      */
     private $password;
 
-    public static function registerUser(UserId $userId, Email $email, Password $password): User
+    public static function registerUser(UserId $userId, Email $email, Password $password): self
     {
         $user = new self();
         $user->recordThat(UserHasRegistered::occur((string) $userId, [
@@ -45,12 +45,12 @@ final class User extends AggregateRoot
     {
         switch (true) {
             case $event instanceof UserHasRegistered:
-                $this->applyUserHasRegistered($event);
+                $this->whenUserHasRegistered($event);
                 break;
         }
     }
 
-    private function applyUserHasRegistered(UserHasRegistered $event)
+    private function whenUserHasRegistered(UserHasRegistered $event): void
     {
         $this->userId = $event->userId();
         $this->email = $event->email();
