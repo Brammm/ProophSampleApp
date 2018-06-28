@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Todo\Tests\Unit\Domain\User;
 
 use Todo\Domain\User\Email;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Todo\Domain\Todo;
 
 use Prooph\EventSourcing\AggregateChanged;
@@ -8,6 +10,7 @@ class TodoWasPlanned extends AggregateChanged
 {
     public function todoId(): TodoId
     {
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return TodoId::fromString($this->aggregateId());
     }
 

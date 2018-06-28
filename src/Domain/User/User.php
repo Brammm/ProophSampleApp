@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Todo\Domain\User;
 
 use Prooph\EventSourcing\AggregateChanged;
@@ -26,8 +28,8 @@ final class User extends AggregateRoot
     {
         $user = new self();
         $user->recordThat(UserHasRegistered::occur((string) $userId, [
-            'email' => $email,
-            'password' => $password,
+            'email' => (string) $email,
+            'password' => (string) $password,
         ]));
 
         return $user;

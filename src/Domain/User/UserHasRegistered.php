@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Todo\Domain\User;
 
 use Prooph\EventSourcing\AggregateChanged;
@@ -8,6 +10,7 @@ final class UserHasRegistered extends AggregateChanged
 {
     public function userId(): UserId
     {
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return UserId::fromString($this->aggregateId());
     }
 

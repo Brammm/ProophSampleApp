@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Todo\Infrastructure;
 
 use Ramsey\Uuid\Uuid as UuidLib;
@@ -18,7 +20,7 @@ class Uuid
 
     public static function generate(): self
     {
-        return new static(UuidLib::uuid4());
+        return new static(UuidLib::uuid4()->toString());
     }
 
     public static function fromString(string $uuid): self

@@ -1,7 +1,8 @@
 <?php
 
-namespace Todo\Domain\Todo;
+declare(strict_types=1);
 
+namespace Todo\Domain\Todo;
 
 use Todo\Infrastructure\Uuid;
 

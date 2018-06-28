@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Todo\Domain\Todo;
 
 use Prooph\EventSourcing\AggregateChanged;
@@ -21,7 +23,7 @@ final class Todo extends AggregateRoot
     {
         $todo = new self();
         $todo->recordThat(TodoWasPlanned::occur((string) $todoId, [
-            'description' => $description
+            'description' => $description,
         ]));
 
         return $todo;
