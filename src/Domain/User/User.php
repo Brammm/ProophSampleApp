@@ -27,11 +27,6 @@ final class User extends AggregateRoot
      */
     private $password;
 
-    public function userId(): UserId
-    {
-        return $this->userId;
-    }
-
     public static function registerUser(UserId $userId, Email $email, Password $password): self
     {
         $user = new self();
@@ -41,6 +36,21 @@ final class User extends AggregateRoot
         ]));
 
         return $user;
+    }
+
+    public function userId(): UserId
+    {
+        return $this->userId;
+    }
+
+    public function email(): Email
+    {
+        return $this->email;
+    }
+
+    public function password(): Password
+    {
+        return $this->password;
     }
 
     protected function whenUserHasRegistered(UserHasRegistered $event): void

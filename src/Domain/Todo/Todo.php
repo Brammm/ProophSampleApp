@@ -40,6 +40,21 @@ final class Todo extends AggregateRoot
         return $todo;
     }
 
+    public function todoId(): TodoId
+    {
+        return $this->todoId;
+    }
+
+    public function description(): string
+    {
+        return $this->description;
+    }
+
+    public function assignedTo(): ?UserId
+    {
+        return $this->assignedTo;
+    }
+
     public function assignTo(User $user): void
     {
         $this->recordThat(TodoWasAssigned::occur((string) $this->todoId, [

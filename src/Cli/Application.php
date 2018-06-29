@@ -12,7 +12,7 @@ use Todo\Cli\Command\ProjectTodos;
 
 final class Application extends CliApplication
 {
-    public function __construct(string $name = 'UNKNOWN', string $version = 'UNKNOWN', Container $container = null)
+    public function __construct(string $name = 'UNKNOWN', string $version = 'UNKNOWN', ?Container $container)
     {
         parent::__construct($name, $version, $container);
 

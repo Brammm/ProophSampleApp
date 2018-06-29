@@ -8,13 +8,16 @@ use Todo\Domain\Todo\Event\TodoWasAssigned;
 use Todo\Domain\Todo\Event\TodoWasPlanned;
 use Todo\Domain\Todo\Todo;
 use Todo\Domain\Todo\TodoId;
-use Todo\Domain\User\Event\UserHasRegistered;
-use Todo\Domain\User\User;
 use Todo\Domain\User\UserId;
 use Todo\Tests\TestCase;
+use Todo\Tests\TodoEventsTrait;
+use Todo\Tests\UserEventsTrait;
 
 class TodoTest extends TestCase
 {
+    use TodoEventsTrait;
+    use UserEventsTrait;
+
     /**
      * @var TodoId
      */
@@ -55,10 +58,8 @@ class TodoTest extends TestCase
 
     public function testItCanAssignAUser(): void
     {
-        /** @var Todo $todo */
-        $todo = $this->reconstituteAggregateFromHistory(Todo::class, [$this->todoWasPlanned()]);
-        /** @var User $user */
-        $user = $this->reconstituteAggregateFromHistory(User::class, [$this->userHasRegistered()]);
+        $todo = $this->reconstituteTodo([$this->todoWasPlanned($this->todoId, $this->description)]);
+        $user = $this->reconstituteUser([$this->userHasRegistered($this->userId)]);
 
         $todo->assignTo($user);
 
@@ -70,20 +71,5 @@ class TodoTest extends TestCase
         $this->assertTrue(assert($event instanceof TodoWasAssigned));
         $this->assertSame(TodoWasAssigned::class, $event->messageName());
         $this->assertTrue($this->userId->equals($event->userId()));
-    }
-
-    private function todoWasPlanned(): TodoWasPlanned
-    {
-        return TodoWasPlanned::occur((string) $this->todoId, [
-            'description' => $this->description,
-        ]);
-    }
-
-    private function userHasRegistered(): UserHasRegistered
-    {
-        return UserHasRegistered::occur((string) $this->userId, [
-            'email' => 'john@example.com',
-            'password' => 'password',
-        ]);
     }
 }
