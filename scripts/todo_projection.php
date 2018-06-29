@@ -7,6 +7,7 @@ namespace {
     use Doctrine\DBAL\Connection;
     use Dotenv\Dotenv;
     use Prooph\EventStore\Projection\ProjectionManager;
+    use Prooph\EventStore\Projection\Projector;
     use Todo\Application\Application;
     use Todo\Application\Projection\Todo\TodoReadModel;
     use Todo\Domain\Todo\Event\TodoWasAssigned;
@@ -22,7 +23,14 @@ namespace {
 
     $readModel = new TodoReadModel($container->get(Connection::class));
 
-    $projection = $projectionManager->createReadModelProjection('todo', $readModel);
+    $projection = $projectionManager->createReadModelProjection('todo', $readModel, [
+        Projector::OPTION_PCNTL_DISPATCH => true,
+    ]);
+
+    pcntl_signal(SIGINT, function () use ($projection) {
+        $projection->stop();
+        echo 'quitting';
+    });
 
     $projection
         ->fromStream('todo-stream')
