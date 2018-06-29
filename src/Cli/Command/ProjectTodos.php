@@ -38,7 +38,7 @@ final class ProjectTodos
             Projector::OPTION_PCNTL_DISPATCH => true,
         ]);
 
-        pcntl_signal(SIGINT, function () use ($projection, $output) {
+        pcntl_signal(SIGTERM, function () use ($projection, $output) {
             $output->writeln('Stopping...');
             $projection->stop();
         });

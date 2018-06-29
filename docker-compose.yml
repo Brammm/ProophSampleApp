@@ -4,7 +4,7 @@ services:
     todo-php:
         build:
             context: ./
-            dockerfile: ./.docker/php/Dockerfile
+            dockerfile: .docker/php-fpm/Dockerfile
         volumes:
             - ./:/code/
 
@@ -25,3 +25,10 @@ services:
             - MYSQL_DATABASE=todo
             - MYSQL_ROOT_PASSWORD=root
 
+    todo-project-todo:
+        build:
+            context: ./
+            dockerfile: ./.docker/php-cli/Dockerfile
+        volumes:
+            - .:/code
+        command: php bin/todo project:todos
