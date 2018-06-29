@@ -27,5 +27,8 @@
     },
     "config": {
         "sort-packages": true
+    },
+    "scripts": {
+        "streams:create": "docker exec -i prooph-tutorial_todo-php-fpm_1 bin/todo streams:create"
     }
 }

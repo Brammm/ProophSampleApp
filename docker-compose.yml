@@ -1,10 +1,11 @@
 version: '3.6'
 
 services:
-    todo-php:
+    todo-php-fpm:
         build:
             context: ./
             dockerfile: .docker/php-fpm/Dockerfile
+        image: todo/php-fpm
         volumes:
             - ./:/code/
 
@@ -12,6 +13,7 @@ services:
         build:
             context: ./
             dockerfile: ./.docker/nginx/Dockerfile
+        image: todo/nginx
         ports:
             - 8000:80
         volumes:
@@ -25,10 +27,12 @@ services:
             - MYSQL_DATABASE=todo
             - MYSQL_ROOT_PASSWORD=root
 
-    todo-project-todo:
+    todo-php-cli:
         build:
             context: ./
             dockerfile: ./.docker/php-cli/Dockerfile
-        volumes:
-            - .:/code
+        image: todo/php-cli
+
+    todo-project-todo:
+        image: todo/php-cli
         command: php bin/todo project:todos
