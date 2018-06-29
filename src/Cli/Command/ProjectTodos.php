@@ -46,15 +46,17 @@ final class ProjectTodos
         $projection
             ->fromStream('todo-stream')
             ->when([
-                TodoWasPlanned::class => function ($state, TodoWasPlanned $event) {
-                    $this->readModel()->stack('insert', [
+                TodoWasPlanned::class => function ($state, TodoWasPlanned $event) use ($readModel) {
+                    $readModel->stack('insert', [
                         'id' => (string) $event->todoId(),
                         'description' => $event->description(),
                         'createdAt' => $event->createdAt()->format('Y-m-d H:i:s'),
                     ]);
+
+                    return $state;
                 },
-                TodoWasAssigned::class => function ($state, TodoWasAssigned $event) {
-                    $this->readModel()->stack(
+                TodoWasAssigned::class => function ($state, TodoWasAssigned $event) use ($readModel) {
+                    $readModel->stack(
                         'update',
                         [
                             'assignedTo' => (string) $event->userId(),
@@ -63,6 +65,8 @@ final class ProjectTodos
                             'id' => (string) $event->todoId(),
                         ]
                     );
+
+                    return $state;
                 },
             ])
             ->run();
