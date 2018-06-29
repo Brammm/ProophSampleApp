@@ -21,7 +21,7 @@ final class Application extends App
 
     protected function configureContainer(ContainerBuilder $builder)
     {
-        $builder->addDefinitions(__DIR__ . '/../../config/di.php');
+        $builder->addDefinitions(__DIR__ . '/../../config/api.php');
     }
 
     private function loadRoutes()

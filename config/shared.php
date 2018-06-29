@@ -12,8 +12,6 @@ namespace {
         require('prooph.php'),
 
         [
-            'settings.displayErrorDetails' => true,
-
             PDO::class => function () {
                 return new PDO(
                     sprintf('mysql:host=%s;port=%s;dbname=%s', getenv('DB_HOST'), getenv('DB_PORT'), getenv('DB_NAME')),
