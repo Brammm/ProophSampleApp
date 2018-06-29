@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Todo\Application\Http\Todo;
+namespace Todo\Api\Http\Todo;
 
 use Prooph\ServiceBus\CommandBus;
 use Slim\Http\Request;

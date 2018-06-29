@@ -3,7 +3,7 @@
 require __DIR__ . '/../vendor/autoload.php';
 
 use Dotenv\Dotenv;
-use Todo\Application\Application;
+use Todo\Api\Application;
 
 (new Dotenv(__DIR__ . '/..'))->load();
 

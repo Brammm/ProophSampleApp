@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Todo\Application;
+namespace Todo\Api;
 
 use DI\Bridge\Slim\App;
 use DI\ContainerBuilder;
-use Todo\Application\Http\Todo\PostTodos;
-use Todo\Application\Http\Todo\PutTodoAssign;
-use Todo\Application\Http\User\PostUsers;
+use Todo\Api\Http\Todo\PostTodos;
+use Todo\Api\Http\Todo\PutTodoAssign;
+use Todo\Api\Http\User\PostUsers;
 
 final class Application extends App
 {

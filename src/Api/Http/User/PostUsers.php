@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Todo\Application\Http\Todo;
+namespace Todo\Api\Http\User;
 
 use Prooph\ServiceBus\CommandBus;
 use Slim\Http\Request;
 use Slim\Http\Response;
-use Todo\Domain\Todo\Command\PlanTodo;
-use Todo\Domain\Todo\TodoId;
+use Todo\Domain\User\Command\RegisterUser;
+use Todo\Domain\User\UserId;
 
-final class PostTodos
+final class PostUsers
 {
     /**
      * @var CommandBus
@@ -25,9 +25,9 @@ final class PostTodos
     public function __invoke(Request $request, Response $response): Response
     {
         $payload = $request->getParsedBody();
-        $payload['todoId'] = (string) TodoId::generate();
+        $payload['userId'] = (string) UserId::generate();
 
-        $this->commandBus->dispatch(new PlanTodo($payload));
+        $this->commandBus->dispatch(new RegisterUser($payload));
 
         return $response->withStatus(202);
     }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Todo\Application\Projection\Todo;
+namespace Todo\Api\Projection\Todo;
 
 use Doctrine\DBAL\Connection;
 use Prooph\EventStore\Projection\AbstractReadModel;
