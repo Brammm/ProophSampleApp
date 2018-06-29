@@ -31,7 +31,7 @@ class TestCase extends PHPUnitTestCase
 
     private function getAggregateTranslator(): AggregateTranslator
     {
-        if (null === $this->aggregateTranslator) {
+        if ($this->aggregateTranslator === null) {
             $this->aggregateTranslator = new AggregateTranslator();
         }
 

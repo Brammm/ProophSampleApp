@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Todo\Tests\Unit\Domain\Todo\Command;
 
 use PHPUnit\Framework\MockObject\MockObject;
@@ -39,7 +41,7 @@ class PlanTodoCommandHandlerTest extends TestCase
         $this->todoRepo->expects($this->once())
             ->method('save')
             ->with($this->callback(function (Todo $todo) {
-                if (!$this->todoId->equals($todo->todoId())) {
+                if (! $this->todoId->equals($todo->todoId())) {
                     return false;
                 }
 

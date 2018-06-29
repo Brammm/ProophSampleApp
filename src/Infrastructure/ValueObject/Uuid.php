@@ -28,7 +28,7 @@ class Uuid extends StringObject
      */
     public static function fromString(string $uuid): self
     {
-        if (!UuidLib::isValid($uuid)) {
+        if (! UuidLib::isValid($uuid)) {
             throw new \InvalidArgumentException('Given UserId is not a valid UUID');
         }
 

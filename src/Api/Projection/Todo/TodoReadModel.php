@@ -52,7 +52,7 @@ EOT;
 
     public function reset(): void
     {
-        $sql = sprintf("TRUNCATE TABLE `%s`;", self::TABLE);
+        $sql = sprintf('TRUNCATE TABLE `%s`;', self::TABLE);
 
         $statement = $this->connection->prepare($sql);
         $statement->execute();
@@ -60,7 +60,7 @@ EOT;
 
     public function delete(): void
     {
-        $sql = sprintf("DROP TABLE `%s`;", self::TABLE);
+        $sql = sprintf('DROP TABLE `%s`;', self::TABLE);
 
         $statement = $this->connection->prepare($sql);
         $statement->execute();

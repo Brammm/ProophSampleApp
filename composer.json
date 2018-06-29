@@ -22,6 +22,7 @@
         "vlucas/phpdotenv": "^2.4"
     },
     "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.12",
         "phpunit/phpunit": "^7.2",
         "roave/security-advisories": "dev-master"
     },
@@ -29,6 +30,8 @@
         "sort-packages": true
     },
     "scripts": {
-        "streams:create": "docker exec -i prooph-tutorial_todo-php-fpm_1 bin/todo streams:create"
+        "streams:create": "docker exec -i prooph-tutorial_todo-php-fpm_1 bin/todo streams:create",
+        "lint": "vendor/bin/php-cs-fixer fix --dry-run --diff",
+        "lint:fix": "vendor/bin/php-cs-fixer fix"
     }
 }

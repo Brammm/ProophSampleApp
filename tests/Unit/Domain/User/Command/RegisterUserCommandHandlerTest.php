@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Todo\Tests\Unit\Domain\User\Command;
 
 use PHPUnit\Framework\MockObject\MockObject;
@@ -47,15 +49,15 @@ class RegisterUserCommandHandlerTest extends TestCase
         $this->userRepo->expects($this->once())
             ->method('save')
             ->with($this->callback(function (User $user) {
-                if (!$this->userId->equals($user->userId())) {
+                if (! $this->userId->equals($user->userId())) {
                     return false;
                 }
 
-                if (!$this->email->equals($user->email())) {
+                if (! $this->email->equals($user->email())) {
                     return false;
                 }
 
-                if (!$this->password->equals($user->password())) {
+                if (! $this->password->equals($user->password())) {
                     return false;
                 }
 

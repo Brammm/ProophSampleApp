@@ -9,9 +9,6 @@ use RuntimeException;
 
 trait AppliesEvents
 {
-    /**
-     * Apply given event
-     */
     protected function apply(AggregateChanged $event): void
     {
         $handler = $this->determineEventHandlerMethodFor($event);
