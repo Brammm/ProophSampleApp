@@ -40,7 +40,7 @@ EOT;
 
     public function isInitialized(): bool
     {
-        $sql = sprintf("SHOW TABLES LIKE '%s';", self::TABLE);
+        $sql = sprintf('SHOW TABLES LIKE \'%s\';', self::TABLE);
 
         $statement = $this->connection->prepare($sql);
         $statement->execute();
