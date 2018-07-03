@@ -5,7 +5,7 @@ This is a small API built with [Prooph](http://getprooph.org/) as a test/learnin
 ## Todo
 
 - Queue commands on Rabbit
-- Implement a ProcessManager to send emails (mailcatcher) when a todo is assigned
 - Add request validation to the CommandRequestHandler
 - Add cli commands to replay events
 - add cli commands to stop/reset and rerun projection
+- Add finder for user/todo (use that in notify handler)

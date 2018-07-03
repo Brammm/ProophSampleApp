@@ -33,11 +33,17 @@ services:
             dockerfile: ./.docker/php-cli/Dockerfile
         image: todo/php-cli
 
-    todo-project-todo:
+    todo-project-todos:
         image: todo/php-cli
         volumes:
             - ./:/code/
         command: php bin/todo project:todos
+
+    todo-project-users:
+        image: todo/php-cli
+        volumes:
+            - ./:/code/
+        command: php bin/todo project:users
 
     todo-mailcatcher:
         image: tophfr/mailcatcher

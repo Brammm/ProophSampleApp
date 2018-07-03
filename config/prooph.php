@@ -55,10 +55,10 @@ namespace {
             return $commandBus;
         },
 
-        EventBus::class => function(ContainerInterface $container) {
+        EventBus::class => function (ContainerInterface $container) {
             $router = new EventRouter([
                 TodoWasAssigned::class => [
-                    NotifyUserOfAssignmentProcessManager::class
+                    NotifyUserOfAssignmentProcessManager::class,
                 ],
             ]);
 
@@ -107,7 +107,7 @@ namespace {
             );
         },
 
-        ProjectionManager::class => function(EventStore $eventStore, PDO $pdo) {
+        ProjectionManager::class => function (EventStore $eventStore, PDO $pdo) {
             return new MySqlProjectionManager(
                 $eventStore,
                 $pdo
