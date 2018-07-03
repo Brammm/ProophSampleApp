@@ -31,6 +31,9 @@ namespace {
     use Todo\Domain\Todo\TodoRepository;
     use Todo\Domain\Todo\TodoWasAssigned;
     use Todo\Domain\User\EventStoreUserRepository;
+    use Todo\Domain\User\NotifyUserOfAssignment;
+    use Todo\Domain\User\NotifyUserOfAssignmentCommandHandler;
+    use Todo\Domain\User\NotifyUserOfAssignmentProcessManager;
     use Todo\Domain\User\RegisterUser;
     use Todo\Domain\User\RegisterUserCommandHandler;
     use Todo\Domain\User\User;
@@ -42,6 +45,7 @@ namespace {
                 RegisterUser::class => RegisterUserCommandHandler::class,
                 PlanTodo::class => PlanTodoCommandHandler::class,
                 AssignTodo::class => AssignTodoCommandHandler::class,
+                NotifyUserOfAssignment::class => NotifyUserOfAssignmentCommandHandler::class,
             ]);
 
             $commandBus = new CommandBus();
@@ -54,7 +58,7 @@ namespace {
         EventBus::class => function(ContainerInterface $container) {
             $router = new EventRouter([
                 TodoWasAssigned::class => [
-
+                    NotifyUserOfAssignmentProcessManager::class
                 ],
             ]);
 
@@ -65,28 +69,22 @@ namespace {
             return $eventBus;
         },
 
-        EventStore::class => function (PDO $pdo) {
+        EventStore::class => function (PDO $pdo, EventBus $eventBus) {
             $eventStore = new MySqlEventStore(
                 new FQCNMessageFactory(),
                 $pdo,
                 new MySqlSingleStreamStrategy()
             );
 
-            return new ActionEventEmitterEventStore(
+            $eventStore = new ActionEventEmitterEventStore(
                 $eventStore,
                 new ProophActionEventEmitter(ActionEventEmitterEventStore::ALL_EVENTS)
             );
-        },
-
-        EventPublisher::class => function(EventStore $eventStore, EventBus $eventBus) {
-            if (!$eventStore instanceof ActionEventEmitterEventStore) {
-                throw new RuntimeException('EventStore must be ActionEventEmitterEventStore');
-            }
 
             $eventPublisher = new EventPublisher($eventBus);
             $eventPublisher->attachToEventStore($eventStore);
 
-            return $eventPublisher;
+            return $eventStore;
         },
 
         UserRepository::class => function (EventStore $eventStore) {
