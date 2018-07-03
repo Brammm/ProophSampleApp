@@ -35,6 +35,8 @@ services:
 
     todo-project-todo:
         image: todo/php-cli
+        volumes:
+            - ./:/code/
         command: php bin/todo project:todos
 
     todo-mailcatcher:
