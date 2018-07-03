@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Todo\Tests;
 
-use Todo\Domain\User\Event\UserHasRegistered;
 use Todo\Domain\User\User;
+use Todo\Domain\User\UserHasRegistered;
 use Todo\Domain\User\UserId;
 
 trait UserEventsTrait

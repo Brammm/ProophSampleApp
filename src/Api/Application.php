@@ -8,9 +8,9 @@ use DI\Bridge\Slim\App;
 use DI\ContainerBuilder;
 use Todo\Api\Http\Todo\PlanTodoCommandRequestHandler;
 use Todo\Api\Http\User\RegisterUserCommandRequestHandler;
-use Todo\Domain\Todo\Command\AssignTodo;
-use Todo\Domain\Todo\Command\PlanTodo;
-use Todo\Domain\User\Command\RegisterUser;
+use Todo\Domain\Todo\AssignTodo;
+use Todo\Domain\Todo\PlanTodo;
+use Todo\Domain\User\RegisterUser;
 use Todo\Infrastructure\Http\CommandRequestHandler;
 
 final class Application extends App

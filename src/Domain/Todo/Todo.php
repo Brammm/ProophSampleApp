@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Todo\Domain\Todo;
 
 use Prooph\EventSourcing\AggregateRoot;
-use Todo\Domain\Todo\Event\TodoWasAssigned;
-use Todo\Domain\Todo\Event\TodoWasPlanned;
 use Todo\Domain\User\User;
 use Todo\Domain\User\UserId;
 use Todo\Infrastructure\Prooph\Messaging\AppliesEvents;

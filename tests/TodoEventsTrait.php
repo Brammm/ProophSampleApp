@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Todo\Tests;
 
-use Todo\Domain\Todo\Event\TodoWasPlanned;
 use Todo\Domain\Todo\Todo;
 use Todo\Domain\Todo\TodoId;
+use Todo\Domain\Todo\TodoWasPlanned;
 
 trait TodoEventsTrait
 {

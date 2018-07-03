@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Todo\Tests\Unit\Domain\User\Command;
 
 use PHPUnit\Framework\MockObject\MockObject;
-use Todo\Domain\User\Command\RegisterUser;
-use Todo\Domain\User\Command\RegisterUserCommandHandler;
 use Todo\Domain\User\Email;
 use Todo\Domain\User\Password;
+use Todo\Domain\User\RegisterUser;
+use Todo\Domain\User\RegisterUserCommandHandler;
 use Todo\Domain\User\User;
 use Todo\Domain\User\UserId;
 use Todo\Domain\User\UserRepository;

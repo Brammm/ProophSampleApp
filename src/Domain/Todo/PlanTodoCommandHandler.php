@@ -2,10 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Todo\Domain\Todo\Command;
-
-use Todo\Domain\Todo\Todo;
-use Todo\Domain\Todo\TodoRepository;
+namespace Todo\Domain\Todo;
 
 final class PlanTodoCommandHandler
 {

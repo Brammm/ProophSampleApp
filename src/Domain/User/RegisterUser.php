@@ -2,13 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Todo\Domain\User\Command;
+namespace Todo\Domain\User;
 
 use Prooph\Common\Messaging\Command;
 use Prooph\Common\Messaging\PayloadTrait;
-use Todo\Domain\User\Email;
-use Todo\Domain\User\Password;
-use Todo\Domain\User\UserId;
 
 final class RegisterUser extends Command
 {

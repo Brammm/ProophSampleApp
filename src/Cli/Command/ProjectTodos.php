@@ -9,8 +9,8 @@ use Prooph\EventStore\Projection\ProjectionManager;
 use Prooph\EventStore\Projection\Projector;
 use Symfony\Component\Console\Output\OutputInterface;
 use Todo\Api\Projection\Todo\TodoReadModel;
-use Todo\Domain\Todo\Event\TodoWasAssigned;
-use Todo\Domain\Todo\Event\TodoWasPlanned;
+use Todo\Domain\Todo\TodoWasAssigned;
+use Todo\Domain\Todo\TodoWasPlanned;
 
 final class ProjectTodos
 {

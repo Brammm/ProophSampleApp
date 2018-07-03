@@ -22,17 +22,17 @@ namespace {
     use Prooph\ServiceBus\Plugin\Router\EventRouter;
     use Prooph\ServiceBus\Plugin\ServiceLocatorPlugin;
     use Psr\Container\ContainerInterface;
-    use Todo\Domain\Todo\Command\AssignTodo;
-    use Todo\Domain\Todo\Command\AssignTodoCommandHandler;
-    use Todo\Domain\Todo\Command\PlanTodo;
-    use Todo\Domain\Todo\Command\PlanTodoCommandHandler;
-    use Todo\Domain\Todo\Event\TodoWasAssigned;
+    use Todo\Domain\Todo\AssignTodo;
+    use Todo\Domain\Todo\AssignTodoCommandHandler;
     use Todo\Domain\Todo\EventStoreTodoRepository;
+    use Todo\Domain\Todo\PlanTodo;
+    use Todo\Domain\Todo\PlanTodoCommandHandler;
     use Todo\Domain\Todo\Todo;
     use Todo\Domain\Todo\TodoRepository;
-    use Todo\Domain\User\Command\RegisterUser;
-    use Todo\Domain\User\Command\RegisterUserCommandHandler;
+    use Todo\Domain\Todo\TodoWasAssigned;
     use Todo\Domain\User\EventStoreUserRepository;
+    use Todo\Domain\User\RegisterUser;
+    use Todo\Domain\User\RegisterUserCommandHandler;
     use Todo\Domain\User\User;
     use Todo\Domain\User\UserRepository;
 

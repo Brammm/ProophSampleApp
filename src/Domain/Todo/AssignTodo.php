@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Todo\Domain\Todo\Command;
+namespace Todo\Domain\Todo;
 
 use Prooph\Common\Messaging\Command;
 use Prooph\Common\Messaging\PayloadTrait;
-use Todo\Domain\Todo\TodoId;
+use Todo\Domain\User\UserId;
 
-final class PlanTodo extends Command
+final class AssignTodo extends Command
 {
     use PayloadTrait;
 
@@ -17,8 +17,8 @@ final class PlanTodo extends Command
         return TodoId::fromString($this->payload['todoId']);
     }
 
-    public function description(): string
+    public function userId(): UserId
     {
-        return $this->payload['description'];
+        return UserId::fromString($this->payload['userId']);
     }
 }

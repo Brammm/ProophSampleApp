@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Todo\Tests\Unit\Domain\Todo\Command;
 
 use PHPUnit\Framework\MockObject\MockObject;
-use Todo\Domain\Todo\Command\AssignTodo;
-use Todo\Domain\Todo\Command\AssignTodoCommandHandler;
+use Todo\Domain\Todo\AssignTodo;
+use Todo\Domain\Todo\AssignTodoCommandHandler;
 use Todo\Domain\Todo\TodoId;
 use Todo\Domain\Todo\TodoRepository;
 use Todo\Domain\User\UserId;
