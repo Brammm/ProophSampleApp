@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Todo\Domain\User;
 
+use Swift_Mailer;
+use Swift_Message;
 use Todo\Domain\Todo\TodoRepository;
-use Zend\Mail\Message;
-use Zend\Mail\Transport\TransportInterface;
 
 final class NotifyUserOfAssignmentCommandHandler
 {
@@ -21,18 +21,18 @@ final class NotifyUserOfAssignmentCommandHandler
     private $todoRepository;
 
     /**
-     * @var TransportInterface
+     * @var Swift_Mailer
      */
-    private $transport;
+    private $mailer;
 
     public function __construct(
         UserRepository $userRepository,
         TodoRepository $todoRepository,
-        TransportInterface $transport
+        Swift_Mailer $mailer
     ) {
         $this->userRepository = $userRepository;
         $this->todoRepository = $todoRepository;
-        $this->transport = $transport;
+        $this->mailer = $mailer;
     }
 
     public function __invoke(NotifyUserOfAssignment $command): void
@@ -40,12 +40,12 @@ final class NotifyUserOfAssignmentCommandHandler
         $user = $this->userRepository->findOneByUserId($command->userId());
         $todo = $this->todoRepository->findOneByTodoId($command->todoId());
 
-        $mail = new Message();
-        $mail->setFrom('todo@example.org', 'Todo');
-        $mail->addTo((string) $user->email());
+        $mail = new Swift_Message();
+        $mail->setFrom(['todo@example.org' => 'Todo']);
+        $mail->setTo([(string) $user->email()]);
         $mail->setSubject('You\'ve been assigned to a Todo');
         $mail->setBody('Task is: ' . $todo->description());
 
-        $this->transport->send($mail);
+        $this->mailer->send($mail);
     }
 }

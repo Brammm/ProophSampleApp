@@ -6,9 +6,6 @@ namespace {
 
     use Doctrine\DBAL\Connection;
     use Doctrine\DBAL\DriverManager;
-    use Zend\Mail\Transport\Smtp;
-    use Zend\Mail\Transport\SmtpOptions;
-    use Zend\Mail\Transport\TransportInterface;
 
     return array_merge(
 
@@ -29,11 +26,11 @@ namespace {
                 ]);
             },
 
-            TransportInterface::class => function() {
-                return new Smtp(new SmtpOptions([
-                    'host' => getenv('SMTP_HOST'),
-                    'port' => getenv('SMTP_PORT'),
-                ]));
+            Swift_Mailer::class => function() {
+                return new Swift_Mailer(new Swift_SmtpTransport(
+                    getenv('SMTP_HOST'),
+                    getenv('SMTP_PORT')
+                ));
             }
         ]
     );
