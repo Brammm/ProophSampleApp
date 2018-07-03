@@ -6,12 +6,17 @@ namespace Todo\Api;
 
 use DI\Bridge\Slim\App;
 use DI\ContainerBuilder;
-use Todo\Api\Http\Todo\PostTodos;
-use Todo\Api\Http\Todo\PutTodoAssign;
-use Todo\Api\Http\User\PostUsers;
+use Todo\Api\Http\Todo\PlanTodoCommandRequestHandler;
+use Todo\Api\Http\User\RegisterUserCommandRequestHandler;
+use Todo\Domain\Todo\Command\AssignTodo;
+use Todo\Domain\Todo\Command\PlanTodo;
+use Todo\Domain\User\Command\RegisterUser;
+use Todo\Infrastructure\Http\CommandRequestHandler;
 
 final class Application extends App
 {
+    private const COMMAND_NAME_ARG = 'commandName';
+
     public function __construct()
     {
         parent::__construct();
@@ -26,8 +31,11 @@ final class Application extends App
 
     private function loadRoutes()
     {
-        $this->post('/users', PostUsers::class);
-        $this->post('/todos', PostTodos::class);
-        $this->put('/todos', PutTodoAssign::class);
+        $this->post('/users', RegisterUserCommandRequestHandler::class)
+            ->setArgument(self::COMMAND_NAME_ARG, RegisterUser::class);
+        $this->post('/todos', PlanTodoCommandRequestHandler::class)
+            ->setArgument(self::COMMAND_NAME_ARG, PlanTodo::class);
+        $this->put('/todos', CommandRequestHandler::class)
+            ->setArgument(self::COMMAND_NAME_ARG, AssignTodo::class);
     }
 }
