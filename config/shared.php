@@ -14,7 +14,7 @@ namespace {
         [
             PDO::class => function () {
                 return new PDO(
-                    sprintf('mysql:host=%s;port=%s;dbname=%s', getenv('DB_HOST'), getenv('DB_PORT'), getenv('DB_NAME')),
+                    sprintf('pgsql:host=%s;port=%s;dbname=%s', getenv('DB_HOST'), getenv('DB_PORT'), getenv('DB_NAME')),
                     getenv('DB_USERNAME'),
                     getenv('DB_PASSWORD')
                 );
