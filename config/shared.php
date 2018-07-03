@@ -6,6 +6,9 @@ namespace {
 
     use Doctrine\DBAL\Connection;
     use Doctrine\DBAL\DriverManager;
+    use Zend\Mail\Transport\Smtp;
+    use Zend\Mail\Transport\SmtpOptions;
+    use Zend\Mail\Transport\TransportInterface;
 
     return array_merge(
 
@@ -25,6 +28,13 @@ namespace {
                     'pdo' => $pdo,
                 ]);
             },
+
+            TransportInterface::class => function() {
+                return new Smtp(new SmtpOptions([
+                    'host' => getenv('SMTP_HOST'),
+                    'port' => getenv('SMTP_PORT'),
+                ]));
+            }
         ]
     );
 }

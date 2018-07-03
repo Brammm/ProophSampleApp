@@ -36,3 +36,8 @@ services:
     todo-project-todo:
         image: todo/php-cli
         command: php bin/todo project:todos
+
+    todo-mailcatcher:
+        image: tophfr/mailcatcher
+        ports:
+            - 1080:80
