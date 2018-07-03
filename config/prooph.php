@@ -8,13 +8,13 @@ namespace {
     use Prooph\Common\Messaging\FQCNMessageFactory;
     use Prooph\EventSourcing\Aggregate\AggregateType;
     use Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator;
+    use Prooph\EventStore\ActionEventEmitterEventStore;
     use Prooph\EventStore\EventStore;
-    use Prooph\EventStore\Pdo\PersistenceStrategy\PostgresSingleStreamStrategy;
-    use Prooph\EventStore\Pdo\PostgresEventStore;
-    use Prooph\EventStore\Pdo\Projection\PostgresProjectionManager;
+    use Prooph\EventStore\Pdo\MySqlEventStore;
+    use Prooph\EventStore\Pdo\PersistenceStrategy\MySqlSingleStreamStrategy;
+    use Prooph\EventStore\Pdo\Projection\MySqlProjectionManager;
     use Prooph\EventStore\Projection\ProjectionManager;
     use Prooph\EventStore\StreamName;
-    use Prooph\EventStore\TransactionalActionEventEmitterEventStore;
     use Prooph\EventStoreBusBridge\EventPublisher;
     use Prooph\ServiceBus\CommandBus;
     use Prooph\ServiceBus\EventBus;
@@ -55,10 +55,10 @@ namespace {
             return $commandBus;
         },
 
-        EventBus::class => function (ContainerInterface $container) {
+        EventBus::class => function(ContainerInterface $container) {
             $router = new EventRouter([
                 TodoWasAssigned::class => [
-                    NotifyUserOfAssignmentProcessManager::class,
+                    NotifyUserOfAssignmentProcessManager::class
                 ],
             ]);
 
@@ -70,15 +70,15 @@ namespace {
         },
 
         EventStore::class => function (PDO $pdo, EventBus $eventBus) {
-            $eventStore = new PostgresEventStore(
+            $eventStore = new MySqlEventStore(
                 new FQCNMessageFactory(),
                 $pdo,
-                new PostgresSingleStreamStrategy()
+                new MySqlSingleStreamStrategy()
             );
 
-            $eventStore = new TransactionalActionEventEmitterEventStore(
+            $eventStore = new ActionEventEmitterEventStore(
                 $eventStore,
-                new ProophActionEventEmitter(TransactionalActionEventEmitterEventStore::ALL_EVENTS)
+                new ProophActionEventEmitter(ActionEventEmitterEventStore::ALL_EVENTS)
             );
 
             $eventPublisher = new EventPublisher($eventBus);
@@ -107,8 +107,8 @@ namespace {
             );
         },
 
-        ProjectionManager::class => function (EventStore $eventStore, PDO $pdo) {
-            return new PostgresProjectionManager(
+        ProjectionManager::class => function(EventStore $eventStore, PDO $pdo) {
+            return new MySqlProjectionManager(
                 $eventStore,
                 $pdo
             );

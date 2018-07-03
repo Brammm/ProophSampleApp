@@ -31,7 +31,6 @@
         "sort-packages": true
     },
     "scripts": {
-        "database:create": "docker exec -i prooph-tutorial_todo-php-fpm_1 bin/todo database:create",
         "streams:create": "docker exec -i prooph-tutorial_todo-php-fpm_1 bin/todo streams:create",
         "lint": "vendor/bin/php-cs-fixer fix --dry-run --diff",
         "lint:fix": "vendor/bin/php-cs-fixer fix"

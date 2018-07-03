@@ -19,12 +19,13 @@ services:
         volumes:
             - ./public:/code/public
 
-    todo-postgres:
-        image: postgres:10-alpine
+    todo-mysql:
+        image: mysql:5.7
         ports:
-            - 5432:5432
+            - 3306:3306
         environment:
-            - POSTGRES_PASSWORD=root
+            - MYSQL_DATABASE=todo
+            - MYSQL_ROOT_PASSWORD=root
 
     todo-php-cli:
         build:
@@ -35,8 +36,6 @@ services:
     todo-project-todo:
         image: todo/php-cli
         command: php bin/todo project:todos
-        volumes:
-            - ./:/code/
 
     todo-mailcatcher:
         image: tophfr/mailcatcher
