@@ -22,9 +22,9 @@ final class ResetProjections
     public function __invoke(OutputInterface $output): void
     {
         $output->writeln('Resetting todo');
-        $this->projectionManager->resetProjection('todo');
+        $this->projectionManager->deleteProjection('todo', true);
         $output->writeln('Resetting user');
-        $this->projectionManager->resetProjection('user');
+        $this->projectionManager->deleteProjection('user', true);
         $output->writeln('Done');
     }
 }

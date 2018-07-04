@@ -49,6 +49,7 @@ final class ProjectUsers
                     $readModel->stack('insert', [
                         'id' => (string) $event->userId(),
                         'email' => $event->email(),
+                        'password' => password_hash((string) $event->password(), PASSWORD_ARGON2I),
                         'createdAt' => $event->createdAt()->format('Y-m-d H:i:s'),
                         'insertedAt' => date('Y-m-d H:i:s'),
                     ]);

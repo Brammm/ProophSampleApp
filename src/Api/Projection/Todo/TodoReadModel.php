@@ -9,7 +9,7 @@ use Prooph\EventStore\Projection\AbstractReadModel;
 
 final class TodoReadModel extends AbstractReadModel
 {
-    private const TABLE = 'r_todo';
+    private const TABLE = 'r_todos';
 
     /**
      * @var Connection

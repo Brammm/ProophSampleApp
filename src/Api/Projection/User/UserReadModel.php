@@ -9,7 +9,7 @@ use Prooph\EventStore\Projection\AbstractReadModel;
 
 final class UserReadModel extends AbstractReadModel
 {
-    private const TABLE = 'r_user';
+    private const TABLE = 'r_users';
 
     /**
      * @var Connection
@@ -29,6 +29,7 @@ final class UserReadModel extends AbstractReadModel
 CREATE TABLE `$table` (
   `id` varchar(36) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(96) COLLATE utf8mb4_unicode_ci NOT NULL,
   `createdAt` datetime NOT NULL,
   `insertedAt` datetime NOT NULL,
   PRIMARY KEY (`id`)

@@ -32,7 +32,7 @@
     },
     "scripts": {
         "streams:create": "docker exec -i prooph-tutorial_todo-php-fpm_1 bin/todo streams:create",
-        "projections:reset": "docker-compose restart todo-project-todos todo-project-users && docker exec -i prooph-tutorial_todo-php-fpm_1 bin/todo projections:reset",
+        "projections:reset": "docker exec -i prooph-tutorial_todo-php-fpm_1 bin/todo projections:reset && docker-compose restart todo-project-todos todo-project-users ",
         "lint": "vendor/bin/php-cs-fixer fix --dry-run --diff",
         "lint:fix": "vendor/bin/php-cs-fixer fix"
     }
