@@ -10,6 +10,7 @@ use Todo\Cli\Command\CreateStreams;
 use Todo\Cli\Command\ProjectTodos;
 use Todo\Cli\Command\ProjectUsers;
 use Todo\Cli\Command\ResetProjections;
+use Todo\Cli\Command\UpcastHashPasswords;
 
 final class Application extends CliApplication
 {
@@ -21,6 +22,7 @@ final class Application extends CliApplication
         $this->command('projections:project:todos', ProjectTodos::class);
         $this->command('projections:project:users', ProjectUsers::class);
         $this->command('projections:reset', ResetProjections::class);
+        $this->command('upcast:hash-passwords', UpcastHashPasswords::class);
     }
 
     protected function createContainer()

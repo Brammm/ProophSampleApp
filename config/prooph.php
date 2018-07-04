@@ -11,6 +11,7 @@ namespace {
     use Prooph\EventStore\ActionEventEmitterEventStore;
     use Prooph\EventStore\EventStore;
     use Prooph\EventStore\Pdo\MySqlEventStore;
+    use Prooph\EventStore\Pdo\PersistenceStrategy;
     use Prooph\EventStore\Pdo\PersistenceStrategy\MySqlSingleStreamStrategy;
     use Prooph\EventStore\Pdo\Projection\MySqlProjectionManager;
     use Prooph\EventStore\Projection\ProjectionManager;
@@ -69,11 +70,15 @@ namespace {
             return $eventBus;
         },
 
-        EventStore::class => function (PDO $pdo, EventBus $eventBus) {
+        PersistenceStrategy::class => function () {
+            return new MySqlSingleStreamStrategy();
+        },
+
+        EventStore::class => function (PDO $pdo, PersistenceStrategy $persistenceStrategy, EventBus $eventBus) {
             $eventStore = new MySqlEventStore(
                 new FQCNMessageFactory(),
                 $pdo,
-                new MySqlSingleStreamStrategy()
+                $persistenceStrategy
             );
 
             $eventStore = new ActionEventEmitterEventStore(
