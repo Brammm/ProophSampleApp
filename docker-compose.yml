@@ -37,13 +37,13 @@ services:
         image: todo/php-cli
         volumes:
             - ./:/code/
-        command: php bin/todo project:todos
+        command: php bin/todo projections:project:todos
 
     todo-project-users:
         image: todo/php-cli
         volumes:
             - ./:/code/
-        command: php bin/todo project:users
+        command: php bin/todo projections:project:users
 
     todo-mailcatcher:
         image: tophfr/mailcatcher

@@ -9,6 +9,7 @@ use Silly\Edition\PhpDi\Application as CliApplication;
 use Todo\Cli\Command\CreateStreams;
 use Todo\Cli\Command\ProjectTodos;
 use Todo\Cli\Command\ProjectUsers;
+use Todo\Cli\Command\ResetProjections;
 
 final class Application extends CliApplication
 {
@@ -17,8 +18,9 @@ final class Application extends CliApplication
         parent::__construct();
 
         $this->command('streams:create', CreateStreams::class);
-        $this->command('project:todos', ProjectTodos::class);
-        $this->command('project:users', ProjectUsers::class);
+        $this->command('projections:project:todos', ProjectTodos::class);
+        $this->command('projections:project:users', ProjectUsers::class);
+        $this->command('projections:reset', ResetProjections::class);
     }
 
     protected function createContainer()

@@ -30,6 +30,7 @@ CREATE TABLE `$table` (
   `id` varchar(36) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `createdAt` datetime NOT NULL,
+  `insertedAt` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 EOT;

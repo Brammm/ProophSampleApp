@@ -50,6 +50,7 @@ final class ProjectUsers
                         'id' => (string) $event->userId(),
                         'email' => $event->email(),
                         'createdAt' => $event->createdAt()->format('Y-m-d H:i:s'),
+                        'insertedAt' => date('Y-m-d H:i:s'),
                     ]);
 
                     return $state;

@@ -51,6 +51,7 @@ final class ProjectTodos
                         'id' => (string) $event->todoId(),
                         'description' => $event->description(),
                         'createdAt' => $event->createdAt()->format('Y-m-d H:i:s'),
+                        'insertedAt' => date('Y-m-d H:i:s'),
                     ]);
 
                     return $state;
