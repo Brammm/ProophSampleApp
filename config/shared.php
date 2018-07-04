@@ -21,9 +21,12 @@ namespace {
             },
 
             Connection::class => function(PDO $pdo) {
-                return DriverManager::getConnection([
+                $connection = DriverManager::getConnection([
                     'pdo' => $pdo,
                 ]);
+                $connection->setFetchMode(PDO::FETCH_OBJ);
+
+                return $connection;
             },
 
             Swift_Mailer::class => function() {

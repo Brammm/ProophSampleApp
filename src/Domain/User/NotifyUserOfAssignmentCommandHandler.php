@@ -4,21 +4,23 @@ declare(strict_types=1);
 
 namespace Todo\Domain\User;
 
+use RuntimeException;
 use Swift_Mailer;
 use Swift_Message;
-use Todo\Domain\Todo\TodoRepository;
+use Todo\Api\Projection\Todo\TodoFinder;
+use Todo\Api\Projection\User\UserFinder;
 
 final class NotifyUserOfAssignmentCommandHandler
 {
     /**
-     * @var UserRepository
+     * @var UserFinder
      */
-    private $userRepository;
+    private $userFinder;
 
     /**
-     * @var TodoRepository
+     * @var TodoFinder
      */
-    private $todoRepository;
+    private $todoFinder;
 
     /**
      * @var Swift_Mailer
@@ -26,25 +28,31 @@ final class NotifyUserOfAssignmentCommandHandler
     private $mailer;
 
     public function __construct(
-        UserRepository $userRepository,
-        TodoRepository $todoRepository,
+        UserFinder $userFinder,
+        TodoFinder $todoFinder,
         Swift_Mailer $mailer
     ) {
-        $this->userRepository = $userRepository;
-        $this->todoRepository = $todoRepository;
+        $this->userFinder = $userFinder;
+        $this->todoFinder = $todoFinder;
         $this->mailer = $mailer;
     }
 
     public function __invoke(NotifyUserOfAssignment $command): void
     {
-        $user = $this->userRepository->findOneByUserId($command->userId());
-        $todo = $this->todoRepository->findOneByTodoId($command->todoId());
+        $user = $this->userFinder->findById((string) $command->userId());
+        if ($user === null) {
+            throw new RuntimeException('User not found');
+        }
+        $todo = $this->todoFinder->findById((string) $command->todoId());
+        if ($todo === null) {
+            throw new RuntimeException('Todo not found');
+        }
 
         $mail = new Swift_Message();
         $mail->setFrom(['todo@example.org' => 'Todo']);
-        $mail->setTo([(string) $user->email()]);
+        $mail->setTo([$user->email]);
         $mail->setSubject('You\'ve been assigned to a Todo');
-        $mail->setBody('Task is: ' . $todo->description());
+        $mail->setBody('Task is: ' . $todo->description);
 
         $this->mailer->send($mail);
     }

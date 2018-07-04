@@ -6,11 +6,10 @@ namespace Todo\Api\Projection\User;
 
 use Doctrine\DBAL\Connection;
 use Prooph\EventStore\Projection\AbstractReadModel;
+use Todo\Api\Projection\Table;
 
 final class UserReadModel extends AbstractReadModel
 {
-    private const TABLE = 'r_users';
-
     /**
      * @var Connection
      */
@@ -23,7 +22,7 @@ final class UserReadModel extends AbstractReadModel
 
     public function init(): void
     {
-        $table = self::TABLE;
+        $table = Table::USERS;
 
         $sql = <<<EOT
 CREATE TABLE `$table` (
@@ -41,7 +40,7 @@ EOT;
 
     public function isInitialized(): bool
     {
-        $sql = sprintf('SHOW TABLES LIKE \'%s\';', self::TABLE);
+        $sql = sprintf('SHOW TABLES LIKE \'%s\';', Table::USERS);
 
         $statement = $this->connection->prepare($sql);
         $statement->execute();
@@ -53,7 +52,7 @@ EOT;
 
     public function reset(): void
     {
-        $sql = sprintf('TRUNCATE TABLE `%s`;', self::TABLE);
+        $sql = sprintf('TRUNCATE TABLE `%s`;', Table::USERS);
 
         $statement = $this->connection->prepare($sql);
         $statement->execute();
@@ -61,7 +60,7 @@ EOT;
 
     public function delete(): void
     {
-        $sql = sprintf('DROP TABLE `%s`;', self::TABLE);
+        $sql = sprintf('DROP TABLE `%s`;', Table::USERS);
 
         $statement = $this->connection->prepare($sql);
         $statement->execute();
@@ -69,13 +68,13 @@ EOT;
 
     protected function insert(array $data): void
     {
-        $this->connection->insert(self::TABLE, $data);
+        $this->connection->insert(Table::USERS, $data);
     }
 
     protected function update(array $data, array $identifier): void
     {
         $this->connection->update(
-            self::TABLE,
+            Table::USERS,
             $data,
             $identifier
         );
