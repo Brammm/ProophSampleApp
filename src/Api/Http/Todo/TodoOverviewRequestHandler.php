@@ -9,7 +9,7 @@ use Doctrine\DBAL\DBALException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Zend\Diactoros\Response\JsonResponse;
+use Todo\Infrastructure\Http\ResponseFactory;
 
 final class TodoOverviewRequestHandler implements RequestHandlerInterface
 {
@@ -36,10 +36,10 @@ final class TodoOverviewRequestHandler implements RequestHandlerInterface
         try {
             $stmt = $this->connection->prepare($sql);
         } catch (DBALException $e) {
-            return new JsonResponse(['error' => 'Failed to get todos'], 500);
+            return ResponseFactory::jsonResponse(['error' => 'Failed to get todos'], 500);
         }
         $stmt->execute();
 
-        return new JsonResponse($stmt->fetchAll());
+        return ResponseFactory::jsonResponse($stmt->fetchAll());
     }
 }

@@ -14,6 +14,8 @@
         "ext-json": "*",
         "doctrine/dbal": "^2.7",
         "mnapoli/silly-php-di": "^1.2",
+        "nyholm/psr7": "^1.1",
+        "nyholm/psr7-server": "^0.3.0",
         "php-di/php-di": "^6.0",
         "prooph/event-sourcing": "^5.5",
         "prooph/event-store-bus-bridge": "^3.2",
@@ -21,8 +23,7 @@
         "ramsey/uuid": "^3.7",
         "slim/slim": "4.0.0-beta",
         "swiftmailer/swiftmailer": "^6.1",
-        "vlucas/phpdotenv": "^2.4",
-        "zendframework/zend-diactoros": "^2.1"
+        "vlucas/phpdotenv": "^2.4"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.12",

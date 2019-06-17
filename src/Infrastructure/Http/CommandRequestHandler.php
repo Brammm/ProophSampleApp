@@ -10,7 +10,6 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use RuntimeException;
 use Slim\Routing\Route;
-use Zend\Diactoros\Response\EmptyResponse;
 
 class CommandRequestHandler implements RequestHandlerInterface
 {
@@ -43,7 +42,7 @@ class CommandRequestHandler implements RequestHandlerInterface
 
         $this->commandBus->dispatch(new $commandName($payload));
 
-        return new EmptyResponse();
+        return ResponseFactory::emptyResponse();
     }
 
     protected function processPayload(array $payload): array
