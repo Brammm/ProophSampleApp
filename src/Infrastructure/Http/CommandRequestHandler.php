@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Todo\Infrastructure\Http;
 
-use function array_key_exists;
 use Prooph\ServiceBus\CommandBus;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use RuntimeException;
+use Slim\Routing\Route;
+use Zend\Diactoros\Response\EmptyResponse;
 
-class CommandRequestHandler
+class CommandRequestHandler implements RequestHandlerInterface
 {
     /**
      * @var CommandBus
@@ -22,21 +24,26 @@ class CommandRequestHandler
         $this->commandBus = $commandBus;
     }
 
-    public function __invoke(
-        ServerRequestInterface $request,
-        ResponseInterface $response,
-        array $arguments = []
-    ): ResponseInterface {
+    /**
+     * Handles a request and produces a response.
+     *
+     * May call other collaborating code to generate the response.
+     */
+    public function handle(ServerRequestInterface $request): ResponseInterface
+    {
+        /** @var Route $route */
+        $route = $request->getAttribute('route');
+        $commandName = $route->getArgument('commandName');
 
-        if (!array_key_exists('commandName', $arguments)) {
+        if ($commandName === null) {
             throw new RuntimeException('Command name not configured');
         }
 
         $payload = $this->processPayload($request->getParsedBody());
 
-        $this->commandBus->dispatch(new $arguments['commandName']($payload));
+        $this->commandBus->dispatch(new $commandName($payload));
 
-        return $response->withStatus(204);
+        return new EmptyResponse();
     }
 
     protected function processPayload(array $payload): array

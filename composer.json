@@ -10,7 +10,7 @@
         }
     },
     "require": {
-        "php": ">=7.2",
+        "php": ">=7.3",
         "ext-json": "*",
         "doctrine/dbal": "^2.7",
         "mnapoli/silly-php-di": "^1.2",

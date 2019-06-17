@@ -7,7 +7,9 @@ namespace Todo\Api;
 use DI\ContainerBuilder;
 use Exception;
 use Slim\App;
+use Slim\Handlers\Strategies\RequestHandler;
 use Todo\Api\Http\Todo\PlanTodoCommandRequestHandler;
+use Todo\Api\Http\Todo\TodoOverviewRequestHandler;
 use Todo\Api\Http\User\RegisterUserCommandRequestHandler;
 use Todo\Domain\Todo\AssignTodo;
 use Todo\Domain\Todo\PlanTodo;
@@ -33,6 +35,8 @@ final class Application extends App
             $containerBuilder->build()
         );
 
+        $this->getRouteCollector()->setDefaultInvocationStrategy(new RequestHandler());
+
         $this->loadRoutes();
         $this->add(JsonRequestParameterParser::class);
     }
@@ -45,5 +49,7 @@ final class Application extends App
             ->setArgument(self::COMMAND_NAME_ARG, PlanTodo::class);
         $this->put('/todos', CommandRequestHandler::class)
             ->setArgument(self::COMMAND_NAME_ARG, AssignTodo::class);
+
+        $this->get('/todos', TodoOverviewRequestHandler::class);
     }
 }
