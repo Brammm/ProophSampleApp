@@ -1,4 +1,4 @@
-FROM php:7.2-cli-stretch
+FROM php:7.3-cli-stretch
 
 RUN docker-php-ext-install pdo_mysql pcntl
 

@@ -25,6 +25,11 @@ final class Application extends CliApplication
         $this->command('upcast:hash-passwords', UpcastHashPasswords::class);
     }
 
+    /**
+     * @throws \Exception
+     *
+     * @return \DI\Container
+     */
     protected function createContainer()
     {
         $builder = new ContainerBuilder();

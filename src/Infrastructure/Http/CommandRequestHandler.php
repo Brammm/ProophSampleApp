@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Todo\Infrastructure\Http;
 
+use function array_key_exists;
 use Prooph\ServiceBus\CommandBus;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -24,15 +25,16 @@ class CommandRequestHandler
     public function __invoke(
         ServerRequestInterface $request,
         ResponseInterface $response,
-        string $commandName = null
+        array $arguments = []
     ): ResponseInterface {
-        if ($commandName === null) {
+
+        if (!array_key_exists('commandName', $arguments)) {
             throw new RuntimeException('Command name not configured');
         }
 
         $payload = $this->processPayload($request->getParsedBody());
 
-        $this->commandBus->dispatch(new $commandName($payload));
+        $this->commandBus->dispatch(new $arguments['commandName']($payload));
 
         return $response->withStatus(204);
     }

@@ -11,16 +11,18 @@
     },
     "require": {
         "php": ">=7.2",
+        "ext-json": "*",
         "doctrine/dbal": "^2.7",
         "mnapoli/silly-php-di": "^1.2",
         "php-di/php-di": "^6.0",
-        "php-di/slim-bridge": "^2.0",
         "prooph/event-sourcing": "^5.5",
         "prooph/event-store-bus-bridge": "^3.2",
         "prooph/pdo-event-store": "^1.9",
         "ramsey/uuid": "^3.7",
+        "slim/slim": "4.0.0-beta",
         "swiftmailer/swiftmailer": "^6.1",
-        "vlucas/phpdotenv": "^2.4"
+        "vlucas/phpdotenv": "^2.4",
+        "zendframework/zend-diactoros": "^2.1"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.12",
